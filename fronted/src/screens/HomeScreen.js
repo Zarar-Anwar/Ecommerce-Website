@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 
 const reducer=(state,action)=>{
    switch(action.type){
@@ -9,24 +9,26 @@ const reducer=(state,action)=>{
      case "FETCH_SUCCES":
       return{...state,loading:false,products:action.payload}
       case "FETCH_FAILED":
-        return{...state,loading:false,error:action.payload}   
+        return{...state,loading:false,error:action.payload} 
+        default:
+          return " "  
     }
 }
 
-initialState={
+const initialState={
   products:[],
   loading:true,
   error:''
 }
 function HomeScreen() {
-  const [{loading,error,products},dispatch]=useReducer(state,initialState)  
+  const [{loading,error,products},dispatch]=useReducer(reducer,initialState)  
   // const [products,setProduct]=useState([])
     useEffect(()=>{
      const fetchData=async()=>{
       dispatch({type:"FETCH_REQUEST"})
       try {
         const result=await axios.get('/api/products')
-        dispatch({type:"FETCH_SUCCES",payload:result.data})
+        dispatch({type:"FETCH_SUCCES",payload:result.data.product})
       } catch (error) {
         dispatch({type:"FETCH_FAILED",payload:error.message})
       }
