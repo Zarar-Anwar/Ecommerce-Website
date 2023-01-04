@@ -4,6 +4,14 @@
 main{
 flex: 1;
 }
+.rating span{
+  color:rgba(236, 250, 43, 0.87);
+}
+
+.cart-btn{ 
+  background-color: rgba(236, 250, 43, 0.87);
+  color: black;
+}
 .products{
   display: flex;
   flex-wrap: wrap;
