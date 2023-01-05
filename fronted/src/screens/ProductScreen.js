@@ -9,6 +9,9 @@ import Badge from 'react-bootstrap/Badge'
 import Rating from "../component/Rating"
 import Button from "react-bootstrap/esm/Button"
 import { Helmet } from "react-helmet-async"
+import { CircularProgress} from "@mui/material"
+import MessageBox from "../component/MessageBox"
+import { getError } from "./utilis"
 
 
 
@@ -40,15 +43,14 @@ function ProductScreen() {
         const result=await axios.get(`/product/${slug}`)
         dispatch({type:"FETCH_SUCCES",payload:result.data})
       } catch (error) {
-        dispatch({type:"FETCH_FAILED",payload:error.message})
+        dispatch({type:"FETCH_FAILED",payload:getError(error)})
       }
     }
      fetchData()
     },[slug])
-    // console.log(product)
   return (
-    loading?<div>...Loading</div>:
-    error?<div>{error}</div>:
+    loading?<div className="text-center"><CircularProgress/></div>:
+    error?<MessageBox variant='error' children={error}></MessageBox>:
     <div className="row-margin">
       <Row>
         <Col md={6} >

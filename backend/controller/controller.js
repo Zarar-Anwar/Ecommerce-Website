@@ -11,7 +11,7 @@ class controller{
         if(product){
             res.send(product)
         }else{
-            res.status(404).send({messgae:'Product not found'})
+            res.status(404).send({message:'Product not found'})
         }
     }
 }

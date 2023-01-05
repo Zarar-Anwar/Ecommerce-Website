@@ -4,6 +4,7 @@ import Product from '../component/Product';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Helmet } from 'react-helmet-async';
+import { CircularProgress } from '@mui/material';
 
 
 const reducer=(state,action)=>{
@@ -47,7 +48,7 @@ function HomeScreen() {
       <h1>Featured Products</h1>
      <div className="products">
       {
-        loading?<div>...loading</div>:error?<div>{error}</div>:(
+        loading?<div className='text-center'><CircularProgress/></div>:error?<div>{error}</div>:(
           <Row>
           {products.map((product)=>(
             <Col sm={6} md={4} lg={3} key={product.slug}><Product product={product}/></Col>
