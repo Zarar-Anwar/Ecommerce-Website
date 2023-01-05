@@ -12,6 +12,15 @@ flex: 1;
   background-color: rgba(236, 250, 43, 0.87);
   color: black;
 }
+
+.img{
+  width:100%;
+  height:635px;
+}
+.row-margin{
+  margin:5;
+}
+
 .products{
   display: flex;
   flex-wrap: wrap;
@@ -23,7 +32,7 @@ flex: 1;
 }
 .product img{
   height:400px;
-  width: 300px;
+  width: 250px;
   max-width:400px;
 }
 .product-info{

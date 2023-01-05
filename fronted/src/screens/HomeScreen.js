@@ -3,6 +3,7 @@ import { useEffect, useReducer } from 'react';
 import Product from '../component/Product';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import { Helmet } from 'react-helmet-async';
 
 
 const reducer=(state,action)=>{
@@ -25,12 +26,11 @@ const initialState={
 }
 function HomeScreen() {
   const [{loading,error,products},dispatch]=useReducer(reducer,initialState)  
-  // const [products,setProduct]=useState([])
     useEffect(()=>{
      const fetchData=async()=>{
       dispatch({type:"FETCH_REQUEST"})
       try {
-        const result=await axios.get('/api/products')
+        const result=await axios.get('/product')
         dispatch({type:"FETCH_SUCCES",payload:result.data.product})
       } catch (error) {
         dispatch({type:"FETCH_FAILED",payload:error.message})
@@ -41,12 +41,14 @@ function HomeScreen() {
     },[])
   return (
     <div>
+      <Helmet>
+        <title>Amazona</title>
+      </Helmet>
       <h1>Featured Products</h1>
      <div className="products">
       {
         loading?<div>...loading</div>:error?<div>{error}</div>:(
           <Row>
-
           {products.map((product)=>(
             <Col sm={6} md={4} lg={3} key={product.slug}><Product product={product}/></Col>
           ))}
