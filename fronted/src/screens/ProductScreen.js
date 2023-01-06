@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useEffect, useReducer } from "react"
+import { useContext, useEffect, useReducer } from "react"
 import { useParams } from "react-router-dom"
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -12,6 +12,7 @@ import { Helmet } from "react-helmet-async"
 import { CircularProgress} from "@mui/material"
 import MessageBox from "../component/MessageBox"
 import { getError } from "./utilis"
+import { Store } from '../store';
 
 
 
@@ -32,6 +33,7 @@ const initialState={
   loading:true,
   error:''
 }
+
 function ProductScreen() {
   const params=useParams()
   const {slug}=params
@@ -46,8 +48,14 @@ function ProductScreen() {
         dispatch({type:"FETCH_FAILED",payload:getError(error)})
       }
     }
-     fetchData()
-    },[slug])
+    fetchData()
+  },[slug])
+ 
+  const {dispatch:ctxDispatch}=useContext(Store)
+  const addcarthandler=()=>{
+     ctxDispatch({type:"ADD_ITEM_CART",payload:{...product,quantity:1}})
+    
+  }
   return (
     loading?<div className="text-center"><CircularProgress/></div>:
     error?<MessageBox variant='error' children={error}></MessageBox>:
@@ -84,7 +92,7 @@ function ProductScreen() {
                 </ListGroup.Item>
                 <ListGroup.Item>
                   {product.countInStock>0 && (<div className="d-grid">
-                 <Button variant="warning">Add to cart</Button>
+                 <Button onClick={addcarthandler} variant="warning">Add to cart</Button>
                   </div>)}
                 </ListGroup.Item>
               </ListGroup>
