@@ -4,14 +4,19 @@ export const Store=createContext()
 
 const initialState={
     cart:{
-        cart:[]
+        cartItems:[]
     }
 }
 
 function reducer(state,action){
     switch(action.type){
         case "ADD_ITEM_CART":
-            return{...state,cart:{...state.cart,cartItems:[...state.cart.cartItems,action.payload]}}
+          const newItems=action.payload
+          const existItems=state.cart.cartItems.find((x)=> x._id===newItems._id)
+          
+          const cartItems=existItems?state.cart.cartItems.map((item)=>item._id===existItems._id?newItems:item)
+          :[...state.cart.cartItems,newItems]
+          return ({...state,cart:{...state.cart,cartItems}})
         default :
         return state    
     }
@@ -20,6 +25,5 @@ function reducer(state,action){
 export function StoreProvider(props){
   const [state,dispatch]=useReducer(reducer,initialState)
   const value={state,dispatch}
-  return <StoreProvider store={value}>{props.children}</StoreProvider>
-
+  return <Store.Provider value={value}> {props.children} </Store.Provider>
 }

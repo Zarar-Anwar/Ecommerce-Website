@@ -14,6 +14,15 @@ class controller{
             res.status(404).send({message:'Product not found'})
         }
     }
+    static addCart=async(req,res)=>{
+        const product=data.product.find((x)=> x._id===req.params.id)
+        if(product)
+        {
+            res.send(product)
+        }else{
+            res.status(404).send({message:'Product not Found'})
+        }
+    }
 }
 
 export default controller
