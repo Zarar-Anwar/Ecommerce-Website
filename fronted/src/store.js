@@ -16,7 +16,7 @@ function reducer(state,action){
           
           const cartItems=existItems?state.cart.cartItems.map((item)=>item._id===existItems._id?newItems:item)
           :[...state.cart.cartItems,newItems]
-          return ({...state,cart:{...state.cart,cartItems}})
+          return {...state,cart:{...state.cart,cartItems}}
         default :
         return state    
     }

@@ -38,6 +38,7 @@ function App() {
         <Container className='mt-3'>
       <Routes>
         <Route path='/product/:slug' element={<ProductScreen/>}/>
+        <Route path='/product/:id' element={<ProductScreen/>}/>
         <Route path='/' element={<HomeScreen/>}/>
         <Route path='/cart' element={<CartScreen/>}/>
       </Routes>

@@ -8,6 +8,6 @@ router.get('/product',controller.showData)
 
 router.get('/product/:slug',controller.singleData)
 
-router.get('/product/:id',controller.addCart)
+router.get('/products/:id',controller.addCart)
 
 export default router
