@@ -10,6 +10,7 @@ import {LinkContainer} from 'react-router-bootstrap'
 import { useContext } from 'react';
 import { Store } from './store';
 import CartScreen from './screens/CartScreen';
+import Signin from './screens/Signin';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path='/product/:slug' element={<ProductScreen/>}/>
         <Route path='/product/:id' element={<ProductScreen/>}/>
         <Route path='/' element={<HomeScreen/>}/>
+        <Route path='/signin' element={<Signin/>}/>
         <Route path='/cart' element={<CartScreen/>}/>
       </Routes>
         </Container>

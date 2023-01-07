@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import { Helmet } from "react-helmet-async"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MessageBox from "../component/MessageBox";
 import { Store } from '../store';
 import CartData from "../cartData";
@@ -14,11 +14,14 @@ import CartData from "../cartData";
 
 
 function CartScreen() {
+  const navigate=useNavigate()
 const {state,dispatch:ctxDispatch}=useContext(Store)
 const {
     cart:{cartItems},
 }=state
-console.log(cartItems.length)
+const proceedhandler=()=>{
+navigate("/signin?redirect=/shipping")
+}
 return (
     <>
       <Helmet>
@@ -49,9 +52,11 @@ return (
                           </h4>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Button type="button" variant="warning" disabled={cartItems.length===0}>
+                          <div className="d-grid">
+                            <Button onClick={proceedhandler} type="button" variant="warning" disabled={cartItems.length===0}>
                             Proceed to CheckOut 
                             </Button>
+                          </div>
                         </ListGroup.Item>
                     </ListGroup>
                 </Card.Body>
