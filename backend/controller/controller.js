@@ -1,12 +1,17 @@
 import data from "../data.js"
+import productmodel from "../models/product.js"
 
 
 class controller{
-    static showData=(req,res)=>{
-        res.send(data)
+    
+    static showData=async(req,res)=>{
+       const data= await productmodel.find()
+       res.send(data)
     }
-    static singleData=(req,res)=>{
-        const product= data.product.find(x=> x.slug===req.params.slug)
+
+
+    static singleData=async(req,res)=>{
+        const product= productmodel.findOne({slug:req.params.slug})
         // console.log(product)
         if(product){
             res.send(product)
@@ -14,14 +19,19 @@ class controller{
             res.status(404).send({message:'Product not found'})
         }
     }
-    static addCart=(req,res)=>{
-        const product=data.product.find(x => x._id === req.params.id)
-        console.log(product)
+    static addCart= async(req,res)=>{
+        const product=productmodel.findById(req.params.id)
+        // console.log(product)
         if(product){
             res.send(product)
         }else{
             res.status(404).send({message:'Product not found'})
         }
+    }
+    static seed=async(req,res)=>{
+        await productmodel.remove({})
+        const createdData=await productmodel.insertMany(data.product)
+        res.send(createdData)
     }
 }
 

@@ -27,11 +27,11 @@ const addcarthandler=async(product)=>{
   return (
     <>
        <Card   className="product">
-          <Link to={`/product/${product.slug}`} >
+          <Link to={`/products/${product.slug}`} >
           <img src={product.image} alt={product.name}/>
           </Link>
           <Card.Body className='product-info'>
-          <Link to={`/product/${product.slug}`}>
+          <Link to={`/products/${product.slug}`}>
             <Card.Title>{product.name}</Card.Title>
           </Link>
           <Rating rating={product.rating} reviews={product.numReviews} />

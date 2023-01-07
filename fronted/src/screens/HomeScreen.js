@@ -32,7 +32,7 @@ function HomeScreen() {
       dispatch({type:"FETCH_REQUEST"})
       try {
         const result=await axios.get('/product')
-        dispatch({type:"FETCH_SUCCES",payload:result.data.product})
+        dispatch({type:"FETCH_SUCCES",payload:result.data})
       } catch (error) {
         dispatch({type:"FETCH_FAILED",payload:error.message})
       }
