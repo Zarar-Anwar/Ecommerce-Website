@@ -6,10 +6,15 @@ const router=express.Router()
 
 router.get('/product',controller.showData)
 
+
 router.get('/products/:slug',controller.singleData)
 
-router.get('/products/:id',controller.addCart)
+
+router.get('/product/:id',controller.addCart)
 
 router.get('/seed',controller.seed)
+
+router.post('/userLogin',controller.userLogin)
+
 
 export default router

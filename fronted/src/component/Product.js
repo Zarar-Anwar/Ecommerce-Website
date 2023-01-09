@@ -14,7 +14,7 @@ const {cart: {cartItems}}=state
 const addcarthandler=async(product)=>{
  const existItems=cartItems.find((x)=>x._id===product._id)
  const quantity=existItems? existItems.quantity+1:1
- const {data}=await axios.get(`/products/${product._id}`)
+ const {data}=await axios.get(`/product/${product._id}`)
  if(data.countInStock<quantity){
   window.alert("Sorry Product SoldOut")
   return

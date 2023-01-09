@@ -1,4 +1,19 @@
 const data={
+    User:[
+        {
+            name:"Zarar Anwar",
+            email:"zararanwar1234321@gmail.com",
+            password:"12345",
+            isAdmin:true
+        },
+        {
+            name:"Zarar",
+            email:"zarar@gmail.com",
+            password:"12345",
+            isAdmin:false
+        },
+        
+    ],
     product:[
         {   
             name:'Nike Slim Shirt',

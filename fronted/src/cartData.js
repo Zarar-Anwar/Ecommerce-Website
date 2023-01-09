@@ -13,7 +13,7 @@ function CartData(){
         cart:{cartItems},
     }=state
     const updateItem=async(item,quantity)=>{
-    const {data}=await axios.get(`/products/${item._id}`)
+    const {data}=await axios.get(`/product/${item._id}`)
     if(data.countInStock<0)
     {
       window.alert("Sorry Product Out of Stock")
@@ -40,7 +40,7 @@ function CartData(){
                                 alt={item.name} 
                                 className=' rounded img-thumbnail'> 
                                 </img>{" "}
-                                <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                                <Link to={`/products/${item.slug}`}>{item.name}</Link>
                             </Col>
                             <Col md={3}>
                                 <Button onClick={()=>{
