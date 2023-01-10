@@ -40,19 +40,25 @@ class controller{
         const {email,password}=req.body
         if(email && password){
             const user=await Usermodel.findOne({email:email})
-           if(user.email && user.password)
+            if(user)
            {
-              res.send({
-                _id:user._id,
-                name:user.name,
-                email:user.email,
-                password:user.password,
-                isAdmin:user.isAdmin,
-                token:generateToken(user)
-              })
+            if(user.email==email && user.password==password)
+            {
+
+                res.send({
+                    _id:user._id,
+                    name:user.name,
+                    email:user.email,
+                    password:user.password,
+                    isAdmin:user.isAdmin,
+                    token:generateToken(user)
+                })
+            }else{
+              res.send({"msg":"Email name Password Is not Correct"})
+            }
            }else
            {
-            res.send({"msg":"Email and Password is Invalid"})
+            res.status(404).send({"msg":"Email and Password is Invalid"})
            }
         }else{
             res.status(404).send({"msg":"All Fields Are Required"})

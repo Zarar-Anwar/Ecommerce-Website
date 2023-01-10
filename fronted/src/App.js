@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Badge from 'react-bootstrap/Badge'
 import Nav from 'react-bootstrap/Nav'
 import Container from 'react-bootstrap/Container'
+import NavDropdown from 'react-bootstrap/NavDropdown'
 import {LinkContainer} from 'react-router-bootstrap'
 import { useContext } from 'react';
 import { Store } from './store';
@@ -14,8 +15,13 @@ import Signin from './screens/Signin';
 
 
 function App() {
-  const {state}=useContext(Store)
-  const {cart}=state
+  const {state,dispatch}=useContext(Store)
+  const {cart,UserInfo}=state
+
+  const signoutHandler=()=>{
+  dispatch({type:"USER_SIGNOUT"})
+  localStorage.removeItem("UserInfo")
+  }
   return (
     <BrowserRouter>
     <div className='d-flex flex-column site-container' >
@@ -31,6 +37,23 @@ function App() {
                {cart.cartItems.reduce((a,c)=> a+c.quantity,0)}
             </Badge>)}
             </Link>
+            { UserInfo ?(
+              <NavDropdown title={UserInfo.name} id="basic-nav-dropdown">
+                <LinkContainer to="/profile">
+                <NavDropdown.Item>User Profile</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/orderhistory">
+                <NavDropdown.Item>Order History</NavDropdown.Item>
+                </LinkContainer>
+                <NavDropdown.Divider/>
+                <Link to="#signout" className="dropdown-item" onClick={signoutHandler}>
+                  SignOut
+                </Link>
+              </NavDropdown>
+            ) 
+            :(
+              <Link to="/signin" className='nav-link'>SignIn</Link>
+            )}
           </Nav>
         </Container>
         </Navbar> 
