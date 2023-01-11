@@ -13,6 +13,8 @@ import { Store } from './store';
 import CartScreen from './screens/CartScreen';
 import Signin from './screens/Signin';
 import ShippingAddress from './screens/ShippingAddress';
+import SignupScreen from './screens/SignupScreen';
+import Paymentmethod from './screens/Paymentmethod';
 
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
   dispatch({type:"USER_SIGNOUT"})
   localStorage.removeItem("UserInfo")
   localStorage.removeItem("shippingaddress")
+  localStorage.removeItem("paymentMethod")
   }
   return (
     <BrowserRouter>
@@ -39,7 +42,8 @@ function App() {
                {cart.cartItems.reduce((a,c)=> a+c.quantity,0)}
             </Badge>)}
             </Link>
-            { UserInfo ?(
+            { UserInfo ? 
+            (
               <NavDropdown title={UserInfo.name} id="basic-nav-dropdown">
                 <LinkContainer to="/profile">
                 <NavDropdown.Item>User Profile</NavDropdown.Item>
@@ -54,7 +58,7 @@ function App() {
               </NavDropdown>
             ) 
             :(
-              <Link to="/signin" className='nav-link'>SignIn</Link>
+              <Link to={UserInfo?'/':'/signin'} className='nav-link'>SignIn</Link>
             )}
           </Nav>
         </Container>
@@ -67,6 +71,8 @@ function App() {
         <Route path='/products/:id' element={<ProductScreen/>}/>
         <Route path='/' element={<HomeScreen/>}/>
         <Route path='/signin' element={<Signin/>}/>
+        <Route path='/signup' element={<SignupScreen/>}/>
+        <Route path='/paymentmethod' element={<Paymentmethod/>}/>
         <Route path='/shipping' element={<ShippingAddress/>}/>
         <Route path='/cart' element={<CartScreen/>}/>
       </Routes>

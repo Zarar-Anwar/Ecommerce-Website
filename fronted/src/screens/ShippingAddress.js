@@ -34,7 +34,7 @@ export default function ShippingAddress() {
         postalcode,
         country
     }))
-       navigate('/payment')
+       navigate('/paymentmethod')
     }   
     useEffect(()=>{
         if(!UserInfo)

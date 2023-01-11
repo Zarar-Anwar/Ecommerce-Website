@@ -16,5 +16,7 @@ router.get('/seed',controller.seed)
 
 router.post('/userLogin',controller.userLogin)
 
+router.post('/userReg',controller.userReg)
+
 
 export default router

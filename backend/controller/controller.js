@@ -2,6 +2,7 @@ import data from "../data.js"
 import productmodel from "../models/product.js"
 import Usermodel from "../models/Usermodel.js"
 import generateToken from "../utils.js"
+import bcrypt from 'bcrypt'
 
 
 class controller{
@@ -60,6 +61,48 @@ class controller{
            {
             res.status(404).send({"msg":"Email and Password is Invalid"})
            }
+        }else{
+            res.status(404).send({"msg":"All Fields Are Required"})
+        }
+    }
+    static userReg=async(req,res)=>{
+        const {name,email,password,confirmpassword}=req.body
+        if(name && email && password && confirmpassword)
+        {
+            const user=await Usermodel.findOne({email:email})
+            if(!user)
+            {   
+                if(password==confirmpassword)
+                {
+
+                    const salt=await bcrypt.genSalt(10)
+                    const hashPassword=await bcrypt.hash(password,salt)
+                    const newUser=await new  Usermodel({
+                        name:name,
+                        email:email,
+                        password:hashPassword,
+                    }).save()
+                    if(newUser)
+                    {
+                        res.send({
+                            _id:newUser._id,
+                            name:newUser.name,
+                            email:newUser.email,
+                            isAdmin:newUser.isAdmin,
+                            token:generateToken(newUser)
+                            
+                        })
+                    }else{
+                        res.status(404).send({"msg":"User Not Found"})
+                    }
+                }else{
+                    
+                    res.status(404).send({"msg":"Password and ConfirmPassword do Not Match"})
+                }
+            }else{
+                res.status(404).send({"msg":"User is Already Register"})
+            }
+
         }else{
             res.status(404).send({"msg":"All Fields Are Required"})
         }
