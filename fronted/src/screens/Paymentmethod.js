@@ -1,4 +1,4 @@
-import { Button,Grid,Checkbox, FormGroup, FormControlLabel } from "@mui/material";
+import { Button,Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { Helmet } from "react-helmet-async";
 import Form from 'react-bootstrap/Form'
@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "../store";
 
 export default function Paymentmethod(){
+    
     const {state,dispatch}=useContext(Store)
     const {cart:{shippingaddress,paymentMethod}}=state
     const navigate=useNavigate()
@@ -20,8 +21,9 @@ export default function Paymentmethod(){
     },[shippingaddress,navigate])
     
     const paymenthandler=(e)=>{
-          e.preventDefault()
-           dispatch({
+        e.preventDefault()
+        console.log(shippingaddress)
+        dispatch({
             type:"ADD_PAYMENT_METHOD",payload:paymentmethod
            })
            localStorage.setItem("paymentMethod",paymentmethod)

@@ -17,6 +17,15 @@ export default function ShippingAddress() {
     const navigate=useNavigate()
     const submithandler=(e)=>{
       e.preventDefault()
+      const data=new FormData(e.currentTarget)
+      const actualData={
+        setFullname:data.get('fullname'),
+        setAddress:data.get('address'),
+        setCity:data.get('city'),
+      setPostalcode:data.get('postalcode'),
+      setCountry:data.get('country')
+      }
+      console.log(fullname,address,city,postalcode,country)
        dispatch({
         type:"ADD_SHIPPING_ADDRESS",payload:{
             fullname,
@@ -49,11 +58,11 @@ export default function ShippingAddress() {
        <Grid container justifyContent="center" sx={{width:"100"}}>
         <Box sx={{p:3,m:3,maxWidth:'650px'}}  onSubmit={submithandler} textAlign='center' component="form" id="shipping_form">
         <h1>Shipping Address</h1>
-                <TextField margin="normal" variant="filled" required  label="Fullname" id="fullname" name='fullname' value={shippingaddress?shippingaddress.fullname:" "} fullWidth onChange={(e)=>setFullname(e.current.value) } />
-                <TextField margin="normal" variant="filled" required  label="Address" id="address" name='address' fullWidth value={shippingaddress?shippingaddress.address:" "} onChange={(e)=>setAddress(e.current.value) } />
-                <TextField margin="normal" variant="filled" required  label="City" id="city" name='city' fullWidth onChange={(e)=>setCity(e.current.value) } value={shippingaddress?shippingaddress.city:" "}/>
-                <TextField margin="normal" variant="filled" required  label="Postal Code" id="postalcode" name='postalcode' fullWidth onChange={(e)=>setPostalcode(e.current.value) } value={shippingaddress?shippingaddress.postalcode:" "}/>
-                <TextField margin="normal" variant="filled" required  label="Country" id="country" name='country' fullWidth onChange={(e)=>setCountry(e.current.value) } value={shippingaddress?shippingaddress.country:" "}/>
+                <TextField margin="normal" variant="filled" required  label="Fullname" id="fullname" name='fullname' value={shippingaddress?shippingaddress.fullname:" "} fullWidth   />
+                <TextField margin="normal" variant="filled" required  label="Address" id="address" name='address' fullWidth value={shippingaddress?shippingaddress.address:" "}  />
+                <TextField margin="normal" variant="filled" required  label="City" id="city" name='city' fullWidth  value={shippingaddress?shippingaddress.city:" "}/>
+                <TextField margin="normal" variant="filled" required  label="Postal Code" id="postalcode" name='postalcode' fullWidth  value={shippingaddress?shippingaddress.postalcode:" "}/>
+                <TextField margin="normal" variant="filled" required  label="Country" id="country" name='country' fullWidth  value={shippingaddress?shippingaddress.country:" "}/>
         <Box textAlign="center" m={4}>
             <Button variant="contained" color="warning" type='submit'>Continue</Button>
         </Box>
