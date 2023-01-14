@@ -1,8 +1,9 @@
 import data from "../data.js"
 import productmodel from "../models/product.js"
 import Usermodel from "../models/Usermodel.js"
-import generateToken from "../utils.js"
+import {generateToken} from "../utils.js"
 import bcrypt from 'bcrypt'
+import ordermodel from "../models/ordermodel.js"
 
 
 class controller{
@@ -106,6 +107,20 @@ class controller{
         }else{
             res.status(404).send({"msg":"All Fields Are Required"})
         }
+    }
+    static order=async(req,res)=>{
+        const newOrder =new ordermodel({
+            orderItems:req.body.orderItems.map((x)=> ({...x,product: x._id})),
+            shippingaddress:req.body.shippingaddress,
+            paymentMethod:req.body.paymentMethod,
+            itemsPrice:req.body.itemsPrice,
+            shippingPrice:req.body.shippingPrice,
+            taxPrice:req.body.taxPrice,
+            totalPrice:req.body.totalPrice,
+            user:req.user._id,
+        })
+        const order =await newOrder.save()
+        res.status(201).send({message:"New Order Created",order})
     }
 }
 

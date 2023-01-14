@@ -1,5 +1,6 @@
 import express from "express";
 import controller from "../controller/controller.js";
+import { isAuth } from "../utils.js";
 
 const router=express.Router()
 
@@ -18,5 +19,6 @@ router.post('/userLogin',controller.userLogin)
 
 router.post('/userReg',controller.userReg)
 
+router.post('/order',isAuth,controller.order)
 
 export default router

@@ -17,6 +17,7 @@ import SignupScreen from './screens/SignupScreen';
 import Paymentmethod from './screens/Paymentmethod';
 import PlaceorderScreen from './screens/PlaceOrderScreen';
 import { ToastContainer} from 'react-toastify'
+import OrderScreen from './screens/OrderScreen';
 
 
 function App() {
@@ -88,6 +89,7 @@ function App() {
         <Route path='/paymentmethod' element={<Paymentmethod/>}/>
         <Route path='/shipping' element={<ShippingAddress/>}/>
         <Route path='/cart' element={<CartScreen/>}/>
+        <Route path='/order/:id' element={<OrderScreen/>}/>
       </Routes>
         </Container>
       </main>

@@ -1,9 +1,11 @@
-import { Alert, Card, CircularProgress } from "@mui/material"
+import { Alert, CircularProgress } from "@mui/material"
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
 import axios from "axios"
 import { useContext, useEffect, useReducer } from "react"
 import { Helmet } from "react-helmet-async"
 import { useNavigate, useParams } from "react-router-dom"
-import CartData from "../cartData"
 import MessageBox from "../component/MessageBox"
 import { Store } from "../store"
 import { getError } from "./utilis"
@@ -66,11 +68,11 @@ export default function OrderScreen() {
                 <Card className="mb-3">
                     <Card.Body>
                         <Card.Title>Shipping</Card.Title>
-                        <Cart.Text>
+                        <Card.Text>
                             <strong>Name : </strong>{order.shippingaddress.fullname} <br />
                             <strong> Address : </strong>{order.shippingaddress.address},{order.shippingaddress.city}
                             ,{order.shippingaddress.postalcode},{order.shippingaddress.country}
-                        </Cart.Text>
+                        </Card.Text>
                         {order.isDelivered? (
                             <MessageBox varaint='success'>Delivered At {order.deliveredAt}</MessageBox>
                         ):(

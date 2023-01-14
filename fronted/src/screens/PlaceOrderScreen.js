@@ -27,11 +27,6 @@ const reducer=(state,action)=>{
 }
 
 export default function PlaceorderScreen(){
-    const [error,setError]=useState({
-        status:false,
-        msg:"",
-        type:''
-    })
     const [{loading},dispatch]=useReducer(reducer,{
         loading:false
     })
@@ -47,7 +42,9 @@ export default function PlaceorderScreen(){
     const placeOrderHandler=async()=>{
         try {
             dispatch({type:"CREATE_REQUEST"})
-            const {data}= await axios.post(`/orders/`,{
+
+            const {data} =await axios.post('/order',{
+
                 orderItems:cart.cartItems,
                 shippingaddress:cart.shippingaddress,
                 paymentMethod:cart.paymentMethod,
@@ -62,6 +59,7 @@ export default function PlaceorderScreen(){
                 }
             }
             )
+            console.log(data)
             ctxDispatch({type:"CART_CLEAR"})
             dispatch({type:"CREATE_SUCCESS"})
             localStorage.removeItem("cartItems")
@@ -164,7 +162,7 @@ export default function PlaceorderScreen(){
                         {loading && <CircularProgress />}
                          </Box>
                         </Box>
-                        {error.status?<Alert severity={error.type}>{error.msg}</Alert>:" "}
+                      
                     </ListGroup>
                 </Card.Body>
             </Card>
