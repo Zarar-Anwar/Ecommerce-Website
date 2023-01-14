@@ -22,7 +22,6 @@ export default function Paymentmethod(){
     
     const paymenthandler=(e)=>{
         e.preventDefault()
-        console.log(shippingaddress)
         dispatch({
             type:"ADD_PAYMENT_METHOD",payload:paymentmethod
            })
@@ -43,8 +42,8 @@ export default function Paymentmethod(){
              type="radio"
              id='paypal'
              label='Paypal'
-             value='paypal'
-             checked={paymentmethod==='paypal'}
+             value='Paypal'
+             checked={paymentmethod==='Paypal'}
              onChange={(e)=> setPaymentmethod(e.target.value)}
              />
             </div>
@@ -53,8 +52,8 @@ export default function Paymentmethod(){
              type="radio"
              id='stripe'
              label='Stripe'
-             value='stripe'
-             checked={paymentmethod==='stripe'}
+             value='Stripe'
+             checked={paymentmethod==='Stripe'}
              onChange={(e)=> setPaymentmethod(e.target.value)}
              />
             </div>
