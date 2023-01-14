@@ -1,18 +1,41 @@
-import { Button } from "@mui/material";
+import { Alert, Button, CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
-import { useContext, useEffect } from "react";
+import axios from "axios";
+import { useContext, useEffect, useReducer, useState } from "react";
 import Card  from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Row from "react-bootstrap/Row";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Checkoutstep from "../component/Checkoutstep";
 import { Store } from "../store";
 
+const reducer=(state,action)=>{
+  
+   switch(action.type){
+   case "CREATE_REQUEST":
+    return{...state,loading:true}
+   case "CREATE_SUCCESS":
+    return{...state,loading:false}
+   case "CREATE_FAIL":
+    return{...state,loading:false}
+   default :
+   return state
+   }
+}
 
 export default function PlaceorderScreen(){
-    const {state,dispatch}=useContext(Store)
+    const [error,setError]=useState({
+        status:false,
+        msg:"",
+        type:''
+    })
+    const [{loading},dispatch]=useReducer(reducer,{
+        loading:false
+    })
+    const {state,dispatch:ctxDispatch}=useContext(Store)
     const {cart,UserInfo}=state
     const navigate=useNavigate()
     const round2 = (num)=> Math.round(num * 100 + Number.EPSILON)/100
@@ -22,7 +45,33 @@ export default function PlaceorderScreen(){
     cart.taxPrice=round2(0.15*cart.itemsPrice)
     cart.totalPrice=cart.itemsPrice+cart.shippingPrice+cart.taxPrice
     const placeOrderHandler=async()=>{
+        try {
+            dispatch({type:"CREATE_REQUEST"})
+            const {data}= await axios.post(`/orders/`,{
+                orderItems:cart.cartItems,
+                shippingaddress:cart.shippingaddress,
+                paymentMethod:cart.paymentMethod,
+                itemsPrice:cart.itemsPrice,
+                shippingPrice:cart.shippingPrice,
+                taxPrice:cart.taxPrice,
+                totalPrice:cart.totalPrice
+            },
+            {
+                headers:{
+                    authorixation:`Bearer ${UserInfo.token}`
+                }
+            }
+            )
+            ctxDispatch({type:"CART_CLEAR"})
+            dispatch({type:"CREATE_SUCCESS"})
+            localStorage.removeItem("cartItems")
+            navigate(`/order/${data.order._id}`)
         
+    } catch (error) {
+        dispatch({type:"CREATE_FAIL" })
+        // setError({status:true,msg:{errorMessage},type:'error'})
+        toast(error.message)
+         }
     }
     useEffect(()=>{
         if(!cart.paymentMethod){
@@ -109,9 +158,13 @@ export default function PlaceorderScreen(){
                                 <Col> <strong>$ {cart.totalPrice}</strong></Col>
                             </Row>
                         </ListGroup.Item>
-                        <Box  alignText='center' className='d-grid mt-3'>
-                        <Button type='button' onClick={placeOrderHandler} disabled={cart.cartItems.length===0} variant="contained" color='warning'>Place Order</Button>
+                        <Box  textAlign='center' className='d-grid mt-3 mb-3'>
+                        <Button  type='button' onClick={placeOrderHandler} disabled={cart.cartItems.length===0} variant="contained" color='warning'>Place Order</Button>
+                         <Box textAlign='center' className='mt-3'>
+                        {loading && <CircularProgress />}
+                         </Box>
                         </Box>
+                        {error.status?<Alert severity={error.type}>{error.msg}</Alert>:" "}
                     </ListGroup>
                 </Card.Body>
             </Card>

@@ -7,6 +7,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {HelmetProvider} from 'react-helmet-async'
 import { StoreProvider } from './store';
+import 'react-toastify/dist/ReactToastify.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

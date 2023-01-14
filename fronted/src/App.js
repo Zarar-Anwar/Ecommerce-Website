@@ -16,6 +16,7 @@ import ShippingAddress from './screens/ShippingAddress';
 import SignupScreen from './screens/SignupScreen';
 import Paymentmethod from './screens/Paymentmethod';
 import PlaceorderScreen from './screens/PlaceOrderScreen';
+import { ToastContainer} from 'react-toastify'
 
 
 function App() {
@@ -39,9 +40,9 @@ function App() {
           </LinkContainer>
           <Nav className="me-auto">
             <Link to="/cart" className="nav-link">Cart
-           {cart.cartItems.length>0 && (<Badge pill bg="danger">
+           { cart.cartItems.length>0 && (<Badge pill bg="danger">
                {cart.cartItems.reduce((a,c)=> a+c.quantity,0)}
-            </Badge>)}
+            </Badge>) }
             </Link>
             { UserInfo ? 
             (
@@ -60,13 +61,23 @@ function App() {
             ) 
             :(
               <Link to={UserInfo?'/':'/signin'} className='nav-link'>SignIn</Link>
-            )}
+              )}
           </Nav>
         </Container>
         </Navbar> 
       </header>
       <main>
         <Container className='mt-3'>
+              <ToastContainer  
+              position='top-center'
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              />
       <Routes>
         <Route path='/products/:slug' element={<ProductScreen/>}/>
         <Route path='/products/:id' element={<ProductScreen/>}/>
@@ -84,8 +95,8 @@ function App() {
         <div className='text-center'>All rights reserved</div>
       </footer>
     </div>
-      </BrowserRouter>
+    </BrowserRouter>
   )
-}
+  }
 
 export default App;
