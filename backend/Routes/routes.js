@@ -21,4 +21,10 @@ router.post('/userReg',controller.userReg)
 
 router.post('/order',isAuth,controller.order)
 
+router.get('/order/:id',isAuth,controller.orderget)
+
+router.get('/keys/paypal',controller.paypal)
+
+router.put('/order/:id/pay',isAuth,controller.idPay)
+
 export default router

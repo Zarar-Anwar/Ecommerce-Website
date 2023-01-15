@@ -6,6 +6,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {HelmetProvider} from 'react-helmet-async'
+import {PayPalScriptProvider} from '@paypal/react-paypal-js'
 import { StoreProvider } from './store';
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -14,7 +15,9 @@ root.render(
   <React.StrictMode>
     <StoreProvider>
     <HelmetProvider>
+      <PayPalScriptProvider deferLoading={true}>
     <App />
+      </PayPalScriptProvider>
     </HelmetProvider>
     </StoreProvider>
   </React.StrictMode>

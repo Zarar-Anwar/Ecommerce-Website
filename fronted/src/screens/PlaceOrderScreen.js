@@ -1,4 +1,4 @@
-import { Alert, Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useContext, useEffect, useReducer, useState } from "react";
@@ -68,7 +68,7 @@ export default function PlaceorderScreen(){
     } catch (error) {
         dispatch({type:"CREATE_FAIL" })
         // setError({status:true,msg:{errorMessage},type:'error'})
-        toast(error.message)
+        toast.error(error.message)
          }
     }
     useEffect(()=>{
