@@ -4,12 +4,9 @@ import { isAuth } from "../utils.js";
 
 const router=express.Router()
 
-
 router.get('/product',controller.showData)
 
-
 router.get('/products/:slug',controller.singleData)
-
 
 router.get('/product/:id',controller.addCart)
 
@@ -21,10 +18,15 @@ router.post('/userReg',controller.userReg)
 
 router.post('/order',isAuth,controller.order)
 
+router.get('/order/mine',isAuth,controller.orderMine)
+
 router.get('/order/:id',isAuth,controller.orderget)
 
 router.get('/keys/paypal',controller.paypal)
 
 router.put('/order/:id/pay',isAuth,controller.idPay)
+
+router.put('/user/profile',isAuth,controller.userProfile)
+
 
 export default router

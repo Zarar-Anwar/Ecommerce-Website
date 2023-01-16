@@ -18,6 +18,9 @@ import Paymentmethod from './screens/Paymentmethod';
 import PlaceorderScreen from './screens/PlaceOrderScreen';
 import { ToastContainer} from 'react-toastify'
 import OrderScreen from './screens/OrderScreen';
+import OrderHistory from './screens/OrderHistory';
+import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
+import UserProfile from './screens/UserProfile';
 
 
 function App() {
@@ -29,17 +32,20 @@ function App() {
   localStorage.removeItem("UserInfo")
   localStorage.removeItem("shippingaddress")
   localStorage.removeItem("paymentMethod")
+  window.location.href='/signin'
   }
   return (
     <BrowserRouter>
     <div className='d-flex flex-column site-container' >
       <header>
-       <Navbar bg="dark" variant="dark">
+       <Navbar bg="dark" variant="dark" expand='lg'>
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>Amazona</Navbar.Brand>
           </LinkContainer>
-          <Nav className="me-auto">
+            <Navbar.Toggle aria-controls='basic-navbar-nav' />
+            <Navbar.Collapse id='basic-navbar-nav'>
+          <Nav className="me-auto w-100 justify-content-end">
             <Link to="/cart" className="nav-link">Cart
            { cart.cartItems.length>0 && (<Badge pill bg="danger">
                {cart.cartItems.reduce((a,c)=> a+c.quantity,0)}
@@ -64,6 +70,7 @@ function App() {
               <Link to={UserInfo?'/':'/signin'} className='nav-link'>SignIn</Link>
               )}
           </Nav>
+          </Navbar.Collapse>
         </Container>
         </Navbar> 
       </header>
@@ -85,11 +92,13 @@ function App() {
         <Route path='/' element={<HomeScreen/>}/>
         <Route path='/signin' element={<Signin/>}/>
         <Route path='/signup' element={<SignupScreen/>}/>
+        <Route path='/profile' element={<UserProfile/>}/>
         <Route path='/orderplace' element={<PlaceorderScreen/>}/>
         <Route path='/paymentmethod' element={<Paymentmethod/>}/>
         <Route path='/shipping' element={<ShippingAddress/>}/>
         <Route path='/cart' element={<CartScreen/>}/>
         <Route path='/order/:id' element={<OrderScreen/>}/>
+        <Route path='/orderhistory' element={<OrderHistory/>}/>
       </Routes>
         </Container>
       </main>

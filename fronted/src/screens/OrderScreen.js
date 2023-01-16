@@ -116,8 +116,10 @@ export default function OrderScreen() {
                 })
                 paypalDispatch({
                     type:"resetOptions",
-                    'client-id':clientId,
+                    value:{
+                   'client-id':clientId,
                     currency:'USD'
+                },
                 })
                 paypalDispatch({
                     type:'setLoadingStatus',value:'pending'
@@ -134,7 +136,7 @@ export default function OrderScreen() {
         <Helmet>
             <title>Order {orderID}</title>
         </Helmet>
-        <h1 className="my-3">Order{orderID}</h1>
+        <h1 className="my-3">Order  {orderID}</h1>
         <Row>
             <Col md={8}>
                 <Card className="mb-3">
@@ -148,7 +150,7 @@ export default function OrderScreen() {
                         {order.isDelivered? (
                             <MessageBox varaint='success'>Delivered At {order.deliveredAt}</MessageBox>
                         ):(
-                            <MessageBox variant="danger">Not Delivered</MessageBox>
+                            <MessageBox variant="error">Not Delivered</MessageBox>
                         )
                     }
                     </Card.Body>
@@ -160,10 +162,10 @@ export default function OrderScreen() {
                         <strong>Payment Method : </strong>{order.paymentMethod}
                      </Card.Text>
                      {order.isPaid?(
-                        <MessageBox varaint='success'>Paid at {order.paidAt}</MessageBox>
+                        <MessageBox variant='success'>Paid at {order.paidAt}</MessageBox>
                         )
                         :(
-                           <MessageBox varaint='danger'>Not Paid</MessageBox>
+                           <MessageBox variant='error'>Not Paid</MessageBox>
                         )
                      }
                     </Card.Body>
@@ -186,7 +188,6 @@ export default function OrderScreen() {
                             ))}
                         </ListGroup>
                     </Card.Body>
-
                 </Card>
             </Col>
             <Col md={4}>

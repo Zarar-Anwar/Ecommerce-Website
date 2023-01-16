@@ -40,26 +40,24 @@ export default function PlaceorderScreen(){
     cart.taxPrice=round2(0.15*cart.itemsPrice)
     cart.totalPrice=cart.itemsPrice+cart.shippingPrice+cart.taxPrice
     const placeOrderHandler=async()=>{
+        const actualData={
+            orderItems:cart.cartItems,
+            shippingaddress:cart.shippingaddress,
+            paymentMethod:cart.paymentMethod,
+            itemsPrice:cart.itemsPrice,
+            shippingPrice:cart.shippingPrice,
+            taxPrice:cart.taxPrice,
+            totalPrice:cart.totalPrice
+        }
         try {
             dispatch({type:"CREATE_REQUEST"})
-
-            const {data} =await axios.post('/order',{
-
-                orderItems:cart.cartItems,
-                shippingaddress:cart.shippingaddress,
-                paymentMethod:cart.paymentMethod,
-                itemsPrice:cart.itemsPrice,
-                shippingPrice:cart.shippingPrice,
-                taxPrice:cart.taxPrice,
-                totalPrice:cart.totalPrice
-            },
+            const {data} =await axios.post('/order',actualData,
             {
                 headers:{
-                    authorixation:`Bearer ${UserInfo.token}`
+                    authorization:`Bearer ${UserInfo.token}`
                 }
             }
             )
-            console.log(data)
             ctxDispatch({type:"CART_CLEAR"})
             dispatch({type:"CREATE_SUCCESS"})
             localStorage.removeItem("cartItems")

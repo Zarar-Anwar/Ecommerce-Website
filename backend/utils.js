@@ -17,14 +17,13 @@ const isAuth=(req,res,next)=>{
             }
             else{
                 req.user=decode
-                next()
             }
         })
-
+        
     }else{
         res.status(404).send({message:"No Token"})
     }
-
+    next()
 }
 
 

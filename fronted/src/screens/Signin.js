@@ -54,8 +54,8 @@ function Signin() {
       <Grid  container spacing={4} justifyContent="center" sx={{width:"100",mt:8}}>
           <Box onSubmit={submitHandler}  border={1} borderColor='divider' sx={{p:3}} textAlign='center' component='form' id='signin_form'>
             <h1>Sign-in</h1>
-            <TextField margin="normal" label="Email" required id="email" onChange={(e)=> setEmail(e.current.value)} name="email" fullWidth />
-            <TextField margin="normal" label="password" required id="password" name="password" onChange={(e)=> setPassword(e.current.value)} type="password" fullWidth />
+            <TextField margin="normal" label="Email" required id="email" onChange={(e)=> setEmail(e.target.value)} name="email" fullWidth />
+            <TextField margin="normal" label="password" required id="password" name="password" onChange={(e)=> setPassword(e.target.value)} type="password" fullWidth />
           <Box sx={{m:3}} textAlign='center'>
             <Button type="submit" variant="contained" color='warning'>Sign In</Button>
           </Box>

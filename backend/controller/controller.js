@@ -108,6 +108,8 @@ class controller{
             res.status(404).send({"msg":"All Fields Are Required"})
         }
     }
+
+
     static order=async(req,res)=>{
         const newOrder =new ordermodel({
             orderItems:req.body.orderItems.map((x)=> ({...x,product: x._id})),
@@ -117,11 +119,13 @@ class controller{
             shippingPrice:req.body.shippingPrice,
             taxPrice:req.body.taxPrice,
             totalPrice:req.body.totalPrice,
-            user:req.user._id,
+            user:req.user.userID,
         })
         const order =await newOrder.save()
         res.status(201).send({message:"New Order Created",order})
     }
+
+
     static orderget=async(req,res)=>{
        const order=await ordermodel.findById(req.params.id)
        if(order)
@@ -131,9 +135,15 @@ class controller{
         res.status(404).send({message:"Order Not Found"})
        }
     }
+
+
+
     static paypal=async(req,res)=>{
         res.send(process.env.PAYPAL_CLIENT_ID || 'sb')
     }
+
+
+
     static idPay=async(req,res)=>{
         const order=await ordermodel.findById(req.params.id)
         if(order){
@@ -149,6 +159,40 @@ class controller{
          res.send({Message:"Order Paid",order:updatedOrder})
         }else{
             res.status(404).send({message:"Order Not Found"})
+        }
+    }
+
+
+
+    static orderMine=async(req,res)=>{
+        const orders=await ordermodel.find({user:req.user._id})
+        res.send(orders)
+
+    }
+
+
+
+
+    static userProfile=async(req,res)=>{
+        console.log(req.user._id)
+        const user=await  Usermodel.findById(req.user._id)
+        if(user){
+            user.name=req.body.name || user.name
+            user.email=req.body.email || user.email
+            if(req.body.password)
+            {
+                user.password=await bcrypt.hash(req.body.password,10)
+            }
+            const updatedUser=await user.save()
+            res.send({
+                _id:updatedUser._id,
+                name:updatedUser.name,
+                email:updatedUser.email,
+                isAdmin:updatedUser.isAdmin,
+                token:generateToken(updatedUser)
+            })
+        }else{
+            res.status(404).send({message:"User Not  Found"})
         }
     }
 }
