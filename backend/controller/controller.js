@@ -44,7 +44,8 @@ class controller{
             const user=await Usermodel.findOne({email:email})
             if(user)
            {
-            if(user.email==email && user.password==password)
+            const Match=await bcrypt.compare(password,user.password)
+            if(user.email==email && Match)
             {
 
                 res.send({
@@ -56,7 +57,7 @@ class controller{
                     token:generateToken(user)
                 })
             }else{
-              res.send({"msg":"Email name Password Is not Correct"})
+              res.status(404).send({"msg":"Email and Password Is not Correct"})
             }
            }else
            {
@@ -174,14 +175,14 @@ class controller{
 
 
     static userProfile=async(req,res)=>{
-        console.log(req.user._id)
-        const user=await  Usermodel.findById(req.user._id)
+        const user=await  Usermodel.findById(req.user.userID)
         if(user){
             user.name=req.body.name || user.name
             user.email=req.body.email || user.email
             if(req.body.password)
             {
-                user.password=await bcrypt.hash(req.body.password,10)
+                const hashpassword=await bcrypt.hash(req.body.password,10)
+                await Usermodel.findByIdAndUpdate(user._id,{$set:{password:hashpassword}})
             }
             const updatedUser=await user.save()
             res.send({
@@ -194,6 +195,10 @@ class controller{
         }else{
             res.status(404).send({message:"User Not  Found"})
         }
+    }
+    static categories=async(req,res)=>{
+        const categories=await productmodel.find().distinct('category')
+        res.send(categories)
     }
 }
 

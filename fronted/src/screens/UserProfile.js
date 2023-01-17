@@ -35,7 +35,7 @@ export default function UserProfile() {
     e.preventDefault()
     try {
         const {data}=await axios.put('/user/profile',{
-            name,email,password
+            name,email,password,password_confirm
         },{
             headers:{authorization:`Bearer ${UserInfo.token}`}
         })

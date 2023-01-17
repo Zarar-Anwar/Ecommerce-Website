@@ -28,5 +28,7 @@ router.put('/order/:id/pay',isAuth,controller.idPay)
 
 router.put('/user/profile',isAuth,controller.userProfile)
 
+router.get('/categories',controller.categories)
+
 
 export default router
