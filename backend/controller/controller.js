@@ -202,6 +202,7 @@ class controller{
     }
 
     static search=async(req,res)=>{
+        console.log("I am in Search")
         const PAGE_SIZES=3
         const {query}=req
         const pageSize=query.pageSize || PAGE_SIZES

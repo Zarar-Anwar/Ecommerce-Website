@@ -1,3 +1,4 @@
+import {Box} from '@mui/material'
 import {  CircularProgress } from "@mui/material"
 import Button from 'react-bootstrap/Button'
 import axios from "axios"
@@ -20,7 +21,7 @@ function reducer(state,actions){
             return {...state,loading:true}
         case "FETCH_SUCCESS":
             return {...state,
-                products:actions.payload.products,
+                products:actions.payload.product,
                 page:actions.payload.page,
                 pages:actions.payload.pages,
                 countProducts:actions.payload.countProducts,
@@ -86,8 +87,9 @@ export default function SearchScreen(){
     useEffect(()=>{
         const fetch=async()=>{
             try {
-            dispatch({type:"FETCH_REQUEST"})
-            const {data}=await axios.get(`/search?page=${page}&query=${query}&category=${category}&prices=${prices}&rating=${rating}&order${order}`)
+            const {data}=await axios.get(`/search?category=${category}&query=${query}&rating=${rating}&prices=${prices}&page=${page}`
+            )
+            console.log(data)
             dispatch({
                 type:"FETCH_SUCCESS",payload:data
             })    
@@ -188,7 +190,7 @@ export default function SearchScreen(){
             </Col>
             <Col md={9}>
                 {
-                    loading ?(<CircularProgress/>):(
+                    loading ?(<Box textAlign='center'><CircularProgress/></Box>):(
                         error?<MessageBox variant='error'>{error}</MessageBox>:(
                             <>
                             <Row className="justify-content-between mb-3">
