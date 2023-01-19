@@ -200,6 +200,78 @@ class controller{
         const categories=await productmodel.find().distinct('category')
         res.send(categories)
     }
+
+    static search=async(req,res)=>{
+        const PAGE_SIZES=3
+        const {query}=req
+        const pageSize=query.pageSize || PAGE_SIZES
+        const page=query.page || 1
+        const category=query.category || ""
+        const brand=query.brand || ""
+        const prices=query.prices || ""
+        const rating=query.rating || ""
+        const order=query.order || ""
+        const searchQuery=query.query || ""
+        
+        const queryFilter=
+        searchQuery && searchQuery !=="all"
+        ?{
+            name:{$regex:searchQuery,$options:'i'}
+        }:{}
+        
+        const categoryFilter=
+        category && category!=='all' ? {category}:{}
+         
+        const ratingFilter=
+        rating && rating !=='all'?{
+            rating:{
+                $gte:Number(rating)
+            }
+        }:{}
+
+        const pricesFilter=
+        prices && prices !== 'all'?
+        {
+            prices:{
+                $gte:Number(prices.split('-')[0]),
+                $lte:Number(prices.split('-')[1])
+            }
+        }:{}
+   
+          const sortOrder=
+          order==="featured"
+          ?{featured:-1}:order==='lowest'
+          ?{prices:1}:order==='highest'
+          ?{prices:-1}:order==='toprated'
+          ?{prices:-1}:order==="newest"
+          ?{createdAt:-1}:{_id:-1}
+          
+
+        const product=await productmodel.find(
+            {
+                ...queryFilter,
+                ...categoryFilter,
+                ...pricesFilter,
+                ...ratingFilter
+            }
+            )
+            .sort(sortOrder)
+            .skip(pageSize*(page-1))
+            .limit(pageSize)
+            
+            const countProducts=await productmodel.countDocuments({
+                ...queryFilter,
+                ...categoryFilter,
+                ...pricesFilter,
+                ...ratingFilter
+        })
+         
+        res.send({
+            product,
+            countProducts,
+            page,
+            pages:Math.ceil(countProducts/pageSize)})
+    }
 }
 
 export default controller

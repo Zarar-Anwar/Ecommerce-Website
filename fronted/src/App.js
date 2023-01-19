@@ -25,6 +25,11 @@ import Button from 'react-bootstrap/esm/Button';
 import createTypography from '@mui/material/styles/createTypography';
 import { getError } from './screens/utilis';
 import axios from 'axios';
+import SearchScreen from './screens/SearchScreen';
+import ProtectedRoute from './component/ProtectedRoute';
+import AdminRoute from './component/AdminRoute';
+import Dashboard from './admin Compoenents/Dashboard';
+import Page404 from './screens/404page';
 
 
 function App() {
@@ -56,7 +61,7 @@ function App() {
       "d-flex flex-column site-cantainer"
     ) }>
       <ToastContainer  
-              position='bottom-center'
+              position='top-center'
               autoClose={5000}
               hideProgressBar={false}
               newestOnTop={false}
@@ -102,6 +107,24 @@ function App() {
                {cart.cartItems.reduce((a,c)=> a+c.quantity,0)}
             </Badge>) }
             </Link>
+            {
+              UserInfo && UserInfo.isAdmin &&(
+                <NavDropdown title='admin' id='admin-nav-dropdown'>
+                  <LinkContainer to='/admin/dashboard'>
+                    <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item>Product List</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item>User List</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item>Order List</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )
+            }
           </Nav>
           </Navbar.Collapse>
         </Container>
@@ -114,12 +137,12 @@ function App() {
       >
         <Nav className='flex-column p-2 w-100 text-white'>
           <Nav.Item>
-            <strong>Category</strong>
+            <strong><h2>Category</h2></strong>
             {categories.map((category)=>(
               <Nav.Item key={category}>
                 <Link to={`/search?category=${category}`}
                 onClick={()=> setSideBar(false)}>
-                  <Nav.Item>{category}</Nav.Item>
+                  <Nav.Item><h4>{category}</h4></Nav.Item>
                 </Link>
               </Nav.Item>
             ))}
@@ -130,18 +153,21 @@ function App() {
         <Container className='mt-3'>
               
       <Routes>
+        <Route path='/' element={<HomeScreen/>}/>
+        <Route path='/admin/dashboard' element={<AdminRoute><Dashboard/></AdminRoute>}/>
         <Route path='/products/:slug' element={<ProductScreen/>}/>
         <Route path='/products/:id' element={<ProductScreen/>}/>
-        <Route path='/' element={<HomeScreen/>}/>
         <Route path='/signin' element={<Signin/>}/>
         <Route path='/signup' element={<SignupScreen/>}/>
-        <Route path='/profile' element={<UserProfile/>}/>
+        <Route path='/profile' element={<ProtectedRoute><UserProfile/></ProtectedRoute>}/>
         <Route path='/orderplace' element={<PlaceorderScreen/>}/>
         <Route path='/paymentmethod' element={<Paymentmethod/>}/>
         <Route path='/shipping' element={<ShippingAddress/>}/>
         <Route path='/cart' element={<CartScreen/>}/>
-        <Route path='/order/:id' element={<OrderScreen/>}/>
-        <Route path='/orderhistory' element={<OrderHistory/>}/>
+        <Route path='/search' element={<SearchScreen/>}/>
+        <Route path='/order/:id' element={<ProtectedRoute><OrderScreen/></ProtectedRoute>}/>
+        <Route path='/orderhistory' element={<ProtectedRoute><OrderHistory/></ProtectedRoute>}/>
+        <Route path='/*' element={<Page404/>}/>
       </Routes>
         </Container>
       </main>

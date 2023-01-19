@@ -30,5 +30,6 @@ router.put('/user/profile',isAuth,controller.userProfile)
 
 router.get('/categories',controller.categories)
 
+router.get('/search',controller.search)
 
 export default router
