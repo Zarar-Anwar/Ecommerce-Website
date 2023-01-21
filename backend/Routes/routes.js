@@ -32,4 +32,5 @@ router.get('/categories',controller.categories)
 
 router.get('/search',controller.search)
 
+router.post('/resetpassword',controller.resetpassword)
 export default router

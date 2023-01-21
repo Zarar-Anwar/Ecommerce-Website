@@ -30,6 +30,7 @@ import ProtectedRoute from './component/ProtectedRoute';
 import AdminRoute from './component/AdminRoute';
 import Dashboard from './admin Compoenents/Dashboard';
 import Page404 from './screens/404page';
+import ResetPassword from './screens/ResetPassword';
 
 
 function App() {
@@ -165,7 +166,7 @@ function App() {
         <Route path='/shipping' element={<ShippingAddress/>}/>
         <Route path='/cart' element={<CartScreen/>}/>
         <Route path='/search' element={<SearchScreen/>}/>
-        <Route path='/resetpassword' element={<SearchScreen/>}/>
+        <Route path='/resetpassword' element={<ResetPassword/>}/>
         <Route path='/order/:id' element={<ProtectedRoute><OrderScreen/></ProtectedRoute>}/>
         <Route path='/orderhistory' element={<ProtectedRoute><OrderHistory/></ProtectedRoute>}/>
         <Route path='/*' element={<Page404/>}/>
@@ -173,7 +174,7 @@ function App() {
         </Container>
       </main>
       <footer>
-        <div className='text-center'>All rights reserved</div>
+        <div className='text-center allrights'>All rights reserved</div>
       </footer>
     </div>
     </BrowserRouter>

@@ -4,6 +4,7 @@ import Usermodel from "../models/Usermodel.js"
 import {generateToken} from "../utils.js"
 import bcrypt from 'bcrypt'
 import ordermodel from "../models/ordermodel.js"
+import transporter from "../config/emailconfig.js"
 
 
 class controller{
@@ -272,6 +273,27 @@ class controller{
             countProducts,
             page,
             pages:Math.ceil(countProducts/pageSize)})
+    }
+    static resetpassword=async(req,res)=>{
+        const {email}=req.body
+        if(email){
+            const user=await Usermodel.findOne({email:email})
+            if(user){
+               const token=jwt.sign({userID:user._id},process.env.JWT_SECRET,{expiresIn:'15min'})
+               const link=`http://localhost:5000/reset/${user._id}/${token}`
+               const info={
+                from:process.env.email,
+                to:user.email,
+                subject:"Ecommerce Password Reset Email ",
+                html:`<h1><a href='${link}'>Click Me</a> to Reset Your Password</h1>`
+               }
+               await transporter.sendMail(info)
+            }else{
+                res.status(404).send("Email is Invalid")
+            }
+        }else{
+            res.status(404).send("All Fields Are Required")
+        }
     }
 }
 

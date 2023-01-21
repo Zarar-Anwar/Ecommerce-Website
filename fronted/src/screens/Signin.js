@@ -54,10 +54,10 @@ function Signin() {
             <TextField margin="normal" variant='filled' label="Email" required id="email" onChange={(e)=> setEmail(e.target.value)} name="email" fullWidth />
             <TextField margin="normal" variant='filled' label="password" required id="password" name="password" onChange={(e)=> setPassword(e.target.value)} type="password" fullWidth />
           <Box sx={{m:3}} textAlign='center'>
-            <Button type="submit" variant="contained" color='warning'>Sign In</Button>
+            <Button className="mb-3" type="submit" variant="contained" color='warning'>Sign In</Button><br/>
+           <Link  to='/resetpassword'>ForgetPassword</Link>
           </Box>
-           New User ?<Link to={`/signup?redirect=${redirect}`}> Create Your Account</Link>
-           <Link to='/resetpassword'>ForgetPassword</Link>
+           New User ?<Link to={`/signup?redirect=${redirect}`}> Create Your Account</Link><br/>
           </Box>
       </Grid>
 
