@@ -165,6 +165,7 @@ function App() {
         <Route path='/shipping' element={<ShippingAddress/>}/>
         <Route path='/cart' element={<CartScreen/>}/>
         <Route path='/search' element={<SearchScreen/>}/>
+        <Route path='/resetpassword' element={<SearchScreen/>}/>
         <Route path='/order/:id' element={<ProtectedRoute><OrderScreen/></ProtectedRoute>}/>
         <Route path='/orderhistory' element={<ProtectedRoute><OrderHistory/></ProtectedRoute>}/>
         <Route path='/*' element={<Page404/>}/>
