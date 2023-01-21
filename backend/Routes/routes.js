@@ -33,4 +33,7 @@ router.get('/categories',controller.categories)
 router.get('/search',controller.search)
 
 router.post('/resetpassword',controller.resetpassword)
+
+router.post('/reset/:id/:token',controller.updateResetPassword)
+
 export default router

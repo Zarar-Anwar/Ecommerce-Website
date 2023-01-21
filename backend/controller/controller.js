@@ -295,6 +295,9 @@ class controller{
             res.status(404).send("All Fields Are Required")
         }
     }
+    static updateResetPassword=async(req,res)=>{
+        
+    }
 }
 
 export default controller

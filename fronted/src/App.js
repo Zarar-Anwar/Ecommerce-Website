@@ -31,6 +31,7 @@ import AdminRoute from './component/AdminRoute';
 import Dashboard from './admin Compoenents/Dashboard';
 import Page404 from './screens/404page';
 import ResetPassword from './screens/ResetPassword';
+import ResetPasswordUpdate from './screens/ResetPasswordUpdate';
 
 
 function App() {
@@ -166,6 +167,7 @@ function App() {
         <Route path='/shipping' element={<ShippingAddress/>}/>
         <Route path='/cart' element={<CartScreen/>}/>
         <Route path='/search' element={<SearchScreen/>}/>
+        <Route path='/reset/:id/:token' element={<ResetPasswordUpdate/>}/>
         <Route path='/resetpassword' element={<ResetPassword/>}/>
         <Route path='/order/:id' element={<ProtectedRoute><OrderScreen/></ProtectedRoute>}/>
         <Route path='/orderhistory' element={<ProtectedRoute><OrderHistory/></ProtectedRoute>}/>
