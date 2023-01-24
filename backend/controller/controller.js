@@ -296,7 +296,29 @@ class controller{
         }
     }
     static updateResetPassword=async(req,res)=>{
-        
+        const {id,token}=req.params
+        const {password,confirmpassword}=req.body
+
+        if(password && confirmpassword)
+        {
+            if(password==confirmpassword){
+               const user=await Usermodel.findById(id)
+               const NewToken=process.env.JWT_SECRET
+               const compare=jwt.verify(token,NewToken)
+               if(user && compare){
+                const hashPassword=await bcrypt.hash(password,10)
+                const updateUser=await Usermodel.findByIdAndUpdate({id},{password:hashPassword})
+                res.status(200).send("Password Updated Successfully")
+               }else{
+                   res.status(404).send("User not exist")
+               }
+            }else{
+
+                res.status(404).send("Password and ConfirmPassword Do not match")
+            }
+        }else{
+            res.status(404).send("All Fields Are Required")
+        }
     }
 }
 

@@ -3,8 +3,10 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { getError } from "./utilis";
+import {useParams} from 'react-router-dom'
 
 export default function ResetPasswordUpdate() {
+    const {id,token}=useParams()
     const submithandler=async(e)=>{
         e.preventDefault()
         const data=new FormData(e.currentTarget)
@@ -17,8 +19,8 @@ export default function ResetPasswordUpdate() {
             {
                 try {
                     
-                    const {data}=await axios.post(`/reset/:id/:token`)
-
+                    const {data}=await axios.post(`/reset/:${id}/:${token}`,actualData)
+                    toast.success("Password Update Successfully :")
                 } catch (error) {
                     toast.error(getError(error))
                 }
