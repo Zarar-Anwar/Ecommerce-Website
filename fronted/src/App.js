@@ -22,7 +22,6 @@ import OrderHistory from './screens/OrderHistory';
 import UserProfile from './screens/UserProfile';
 import SearchBox from './component/SearchBox';
 import Button from 'react-bootstrap/esm/Button';
-import createTypography from '@mui/material/styles/createTypography';
 import { getError } from './screens/utilis';
 import axios from 'axios';
 import SearchScreen from './screens/SearchScreen';
@@ -32,6 +31,7 @@ import Dashboard from './admin Compoenents/Dashboard';
 import Page404 from './screens/404page';
 import ResetPassword from './screens/ResetPassword';
 import ResetPasswordUpdate from './screens/ResetPasswordUpdate';
+import { AppBar } from '@mui/material';
 
 
 function App() {
@@ -74,6 +74,7 @@ function App() {
               pauseOnHover
               />
       <header>
+        <AppBar position='fixed'  >
        <Navbar bg="dark" variant="dark" expand='md'>
         <Container>
           <Button variant='dark' onClick={()=> setSideBar(!sideBar)}>
@@ -131,6 +132,7 @@ function App() {
           </Navbar.Collapse>
         </Container>
         </Navbar> 
+      </AppBar>
       </header>
       <div className={sideBar ? ( 'active-nav side-navbar d-flex justify-content-between flex-wrap flex-column'
       ):(
@@ -151,7 +153,7 @@ function App() {
           </Nav.Item>
         </Nav>
       </div>
-      <main>
+      <main className='margin'>
         <Container className='mt-3'>
               
       <Routes>

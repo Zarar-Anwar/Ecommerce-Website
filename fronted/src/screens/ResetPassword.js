@@ -13,7 +13,7 @@ export default function ResetPassword(){
       }
       if(actualdata.email){
         try {
-            const {data} =await axios.post('/resetpassword',actualdata)
+            await axios.post('/resetpassword',actualdata)
             toast.success("Reset Mail send to Your Email please check it in inbox or Spum Box")
         } catch (error) {
             toast.error(getError(error))

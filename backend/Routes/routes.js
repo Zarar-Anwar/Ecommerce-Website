@@ -10,7 +10,7 @@ router.get('/products/:slug',controller.singleData)
 
 router.get('/product/:id',controller.addCart)
 
-router.get('/seed',controller.seed)
+// router.get('/seed',controller.seed)
 
 router.post('/userLogin',controller.userLogin)
 

@@ -1,4 +1,4 @@
-import data from "../data.js"
+// import data from "../data.js"
 import productmodel from "../models/product.js"
 import Usermodel from "../models/Usermodel.js"
 import {generateToken} from "../utils.js"
@@ -33,13 +33,13 @@ class controller{
             res.status(404).send({message:'Product not found'})
         }
     }
-    static seed=async(req,res)=>{
-        await productmodel.remove({})
-        const createdData=await productmodel.insertMany(data.product)
-        await Usermodel.remove({})
-        const createdUser=await Usermodel.insertMany(data.User)
-        res.send({createdData,createdUser})
-    }
+    // static seed=async(req,res)=>{
+    //     await productmodel.remove({})
+    //     const createdData=await productmodel.insertMany(data.product)
+    //     await Usermodel.remove({})
+    //     const createdUser=await Usermodel.insertMany(data.User)
+    //     res.send({createdData,createdUser})
+    // }
     static userLogin=async(req,res)=>{
         const {email,password}=req.body
         if(email && password){

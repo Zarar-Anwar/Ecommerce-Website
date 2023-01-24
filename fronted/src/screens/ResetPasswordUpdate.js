@@ -15,11 +15,11 @@ export default function ResetPasswordUpdate() {
             confirm_password:data.get("confirm_password")
         }
         if(actualData.password && actualData.confirm_password){
-            if(actualData.password==actualData.confirm_password)
+            if(actualData.password===actualData.confirm_password)
             {
                 try {
                     
-                    const {data}=await axios.post(`/reset/:${id}/:${token}`,actualData)
+                    await axios.post(`/reset/:${id}/:${token}`,actualData)
                     toast.success("Password Update Successfully :")
                 } catch (error) {
                     toast.error(getError(error))
