@@ -7,7 +7,7 @@ const ProtectedRoute=({children})=>{
     const {state}=useContext(Store)
     const {UserInfo}=state
 
-    return   UserInfo ? {children} : <Navigate to='/signin'/> 
+    return   UserInfo ? children : <Navigate to='/signin'/> 
 }
 
 export default ProtectedRoute

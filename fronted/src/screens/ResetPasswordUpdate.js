@@ -37,8 +37,8 @@ export default function ResetPasswordUpdate() {
       <Grid container justifyContent='center'>
         <Box component='form' id='resetpasswordupdate-Id' onSubmit={submithandler} width="800px" textAlign='center'>
             <h1>Update Password</h1>
-            <TextField label='Password' id="password" name="password" fullWidth required variant="filled"/>
-            <TextField label='Confirm_Password' id="confirm_password" name="confirm_password" fullWidth required variant="filled"/>
+            <TextField label='Password' type='password' margin="normal" id="password" name="password" fullWidth required variant="filled"/>
+            <TextField label='Confirm_Password' type='password' margin="normal" id="confirm_password" name="confirm_password" fullWidth required variant="filled"/>
             <Box mt={3} textAlign='center'>
                 <Button variant="contained" color='warning' type="submit">Update</Button>
 

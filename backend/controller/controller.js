@@ -5,6 +5,7 @@ import {generateToken} from "../utils.js"
 import bcrypt from 'bcrypt'
 import ordermodel from "../models/ordermodel.js"
 import transporter from "../config/emailconfig.js"
+import jwt from 'jsonwebtoken'
 
 
 class controller{
