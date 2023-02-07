@@ -36,4 +36,6 @@ router.post('/resetpassword',controller.resetpassword)
 
 router.post('/reset/:id/:token',controller.updateResetPassword)
 
+router.post('/uploading',controller.uploading)
+
 export default router

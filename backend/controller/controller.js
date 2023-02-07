@@ -321,6 +321,12 @@ class controller{
             res.status(404).send("All Fields Are Required")
         }
     }
+
+    static uploading=async(req,res)=>{
+      const newProduct=new productmodel(req.body)
+      newProduct.save()
+      res.status(200).send("SuccessFully Uploaded")        
+    }
 }
 
 export default controller
