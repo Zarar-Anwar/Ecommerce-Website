@@ -4,7 +4,8 @@ import Product from '../component/Product';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import { Helmet } from 'react-helmet-async';
-import { CircularProgress } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 const reducer=(state,action)=>{
@@ -26,6 +27,7 @@ const initialState={
   error:''
 }
 function HomeScreen() {
+  const navigate =useNavigate()
   const [{loading,error,products},dispatch]=useReducer(reducer,initialState)  
     useEffect(()=>{
      const fetchData=async()=>{
@@ -45,7 +47,16 @@ function HomeScreen() {
       <Helmet>
         <title>Amazona</title>
       </Helmet>
+      <Row>
+      <Col lg={6} sm={6} md={4}>
       <h1>Featured Products</h1>
+      </Col>
+      <Col lg={6} sm={6} md={4}>
+      <Button variant="contained" onClick={()=>{
+        navigate('/uploading')
+      }} color="warning">Upload Product</Button>
+      </Col>
+      </Row>
      <div className="products">
       {
         loading?<div className='text-center'><CircularProgress/></div>:error?<div>{error}</div>:(

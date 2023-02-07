@@ -32,6 +32,7 @@ import Page404 from './screens/404page';
 import ResetPassword from './screens/ResetPassword';
 import ResetPasswordUpdate from './screens/ResetPasswordUpdate';
 import { AppBar } from '@mui/material';
+import Uploading from './screens/Uploading';
 
 
 function App() {
@@ -171,6 +172,8 @@ function App() {
         <Route path='/search' element={<SearchScreen/>}/>
         <Route path='/reset/:id/:token' element={<ResetPasswordUpdate/>}/>
         <Route path='/resetpassword' element={<ResetPassword/>}/>
+        {/* <Route path='/uploading' element={<AdminRoute><Uploading/></AdminRoute>}/> */}
+        <Route path='/uploading' element={<Uploading/>}/>
         <Route path='/order/:id' element={<ProtectedRoute><OrderScreen/></ProtectedRoute>}/>
         <Route path='/orderhistory' element={<ProtectedRoute><OrderHistory/></ProtectedRoute>}/>
         <Route path='/*' element={<Page404/>}/>

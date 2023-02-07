@@ -18,7 +18,6 @@ export default function ResetPasswordUpdate() {
             if(actualData.password===actualData.confirm_password)
             {
                 try {
-                    
                     await axios.post(`/reset/:${id}/:${token}`,actualData)
                     toast.success("Password Update Successfully :")
                 } catch (error) {
