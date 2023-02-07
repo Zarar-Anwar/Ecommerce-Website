@@ -324,6 +324,7 @@ class controller{
 
     static uploading=async(req,res)=>{
       const newProduct=new productmodel(req.body)
+      console.log(req.body.image)
       newProduct.save()
       res.status(200).send("SuccessFully Uploaded")        
     }

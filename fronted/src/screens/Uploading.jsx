@@ -4,15 +4,17 @@ import {Button} from "@mui/material"
 import { toast } from "react-toastify"
 import { getError } from "./utilis"
 import axios from "axios"
+import { useState } from "react"
 
 function Uploading (){
+    const [image,setImage]=useState()
     const submithandler=async(e)=>{
         e.preventDefault()
         const data=new FormData(e.currentTarget)
         const actualData={
             name:data.get("name"),
             slug:data.get("slug"),
-            image:data.get("image"),
+            brand:data.get("brand"),
             category:data.get("category"),
             description:data.get("description"),
             prices:data.get("prices"),
@@ -35,10 +37,10 @@ function Uploading (){
             <h1>Uploading Product</h1> 
             <TextField margin='normal' variant='filled' fullWidth required label='Name' name="name" id="name"/>
             <TextField margin='normal' variant='filled' fullWidth required label='Slug' name="slug" id="slug"/>
-            <TextField margin='normal' variant='filled' fullWidth required  name="image" id="name" type='file'/>
+            <TextField margin='normal' variant='filled' fullWidth required onChange={(e)=>{setImage(e.target.files[0])}} name="image" id="name" type='file'/>
             <TextField margin='normal' variant='filled' fullWidth required label='Brand' name="brand" id="brand"/>
             <TextField margin='normal' variant='filled' fullWidth required label='Category' name="category" id="category"/>
-            <TextField margin='normal' variant='filled' fullWidth required label='Description' name="slug" id="description"/>
+            <TextField margin='normal' variant='filled' fullWidth required label='Description' name="description" id="description"/>
             <TextField margin='normal' variant='filled' fullWidth required label='$ Prices' name="prices" id="prices" type='number'/>
             <TextField margin='normal' variant='filled' fullWidth required label='CountInStock' name="countInStock" id="countInStock" type='number'/>
             <TextField margin='normal' variant='filled' fullWidth required label='Rating Out of Five' name="rating" id="rating" type='number'/>

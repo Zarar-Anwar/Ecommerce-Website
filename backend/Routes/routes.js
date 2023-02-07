@@ -1,5 +1,6 @@
 import express from "express";
 import controller from "../controller/controller.js";
+import upload from "../ImageModel/multer.js";
 import { isAuth } from "../utils.js";
 
 const router=express.Router()
@@ -36,6 +37,6 @@ router.post('/resetpassword',controller.resetpassword)
 
 router.post('/reset/:id/:token',controller.updateResetPassword)
 
-router.post('/uploading',controller.uploading)
+router.post('/uploading',upload.single("image"),controller.uploading)
 
 export default router
